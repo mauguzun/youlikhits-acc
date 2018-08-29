@@ -21,26 +21,9 @@ namespace YouLikeHits
 
         static void Main(string[] args)
         {
+            Clear();
 
-
-
-            if (!Directory.Exists(IMG))
-                Directory.CreateDirectory(IMG);
-
-            foreach (var file in Directory.GetFiles(IMG))
-            {
-                try
-                {
-                    File.Delete(file);
-                    Console.WriteLine("file deleted");
-                }
-                catch
-                {
-                    Console.WriteLine("whoops ");
-                }
-               
-
-            }
+          
 
             var serviceJs = PhantomJSDriverService.CreateDefaultService();
             serviceJs.HideCommandPromptWindow = true;
@@ -55,19 +38,39 @@ namespace YouLikeHits
 
 
 
-            foreach (var line in repo.Accounts)
-            {
-                Console.WriteLine($"{line.Number},{line.Login},{line.Password}");
-            }
+         
             int defaultNumber = 1;
             if (args.Count() != 0)
             {
-                defaultNumber = Int32.Parse(args[0]);
+                if(args[0] == "all")
+                {
+                    // run new instance :)
+                    OpenAll(repo);
+
+                }
+                else
+                {
+                    
+                    defaultNumber = Int32.Parse(args[0]);
+                }
+
+                
             }
             else
             {
+                foreach (var line in repo.Accounts)
+                {
+                    Console.WriteLine($"{line.Number},{line.Login},{line.Password}");
+                }
                 Console.WriteLine("pls choose account");
+               
                 string number = Console.ReadLine().Trim();
+
+
+                if (number == "all")
+                {
+                    OpenAll(repo);
+                }
                 defaultNumber = 1;
                 Int32.TryParse(number, out defaultNumber);
 
@@ -95,6 +98,37 @@ namespace YouLikeHits
             Youtube youtube = new Youtube(driver);
             youtube.Follow();
         }
+
+        private static void OpenAll(AccRepo repo)
+        {
+            foreach (var line in repo.Accounts)
+            {
+                System.Diagnostics.Process.Start("YouLikeHits.exe", line.Number.ToString());
+
+            }
+        }
+
+        private static void Clear()
+        {
+            if (!Directory.Exists(IMG))
+                Directory.CreateDirectory(IMG);
+
+            foreach (var file in Directory.GetFiles(IMG))
+            {
+                try
+                {
+                    File.Delete(file);
+                    Console.WriteLine("file deleted");
+                }
+                catch
+                {
+                    Console.WriteLine("whoops ");
+                }
+
+
+            }
+        }
+
         //else
         //{
 

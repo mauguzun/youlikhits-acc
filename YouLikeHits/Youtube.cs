@@ -78,6 +78,8 @@ namespace YouLikeHits
                 try
 
                 {
+                    //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                    //string count = (string)js.ExecuteScript("return document.getElementById('currentpoints')");
 
                     Console.Title = Program.selectedAcc.Login + "/" + driver.FindElementById("currentpoints").Text + "/" + bonus.ToString();
 
@@ -242,8 +244,10 @@ namespace YouLikeHits
             }
             else
             {
-                Console.Beep(333, 333);
-                answer = Console.ReadLine();
+               //  Console.Beep(333, 333);
+                //answer = Console.ReadLine();
+                answer = new Random().Next(1, 10).ToString();
+                Console.WriteLine(answer);
                 driver.FindElementByName("answer").SendKeys(answer);
                 driver.FindElementByName("submit").Click();
 
