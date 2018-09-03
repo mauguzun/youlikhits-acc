@@ -1,5 +1,7 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +18,7 @@ namespace YouLikeHits
         public static Guid guid = Guid.NewGuid();
         public static string acc = null;
         public static Account selectedAcc;
-        static PhantomJSDriver driver;
+        static RemoteWebDriver driver;
 
 
         static void Main(string[] args)
@@ -31,7 +33,17 @@ namespace YouLikeHits
             //ChromeOptions options = new ChromeOptions();
             //options.AddArgument("--mute-audio");
             //options.AddArgument("--window-position=-32000,-32000");
-            driver = new PhantomJSDriver(serviceJs);
+            try
+            {
+                driver = new PhantomJSDriver(serviceJs);
+            }
+            catch
+            {
+                ChromeOptions options = new ChromeOptions();
+                options.AddArgument("--mute-audio");
+                options.AddArgument("--window-position=-32000,-32000");
+                driver = new ChromeDriver(options);
+            }
 
 
             AccRepo repo = new AccRepo();

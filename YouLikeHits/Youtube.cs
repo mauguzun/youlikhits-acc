@@ -16,7 +16,7 @@ namespace YouLikeHits
 {
     class Youtube
     {
-        PhantomJSDriver driver;
+        RemoteWebDriver driver;
         string last = null;
         CaptchaContext db;
         bool bonus = false;
@@ -25,7 +25,7 @@ namespace YouLikeHits
 
 
         System.Drawing.Bitmap bit;
-        public Youtube(PhantomJSDriver driver)
+        public Youtube(RemoteWebDriver driver)
         {
 
             this.driver = driver;
@@ -185,8 +185,14 @@ namespace YouLikeHits
                 }
             }
 
-            if (!haveError)
+            if (!haveError  )
             {
+                if (bit == null)
+                {
+                    Screenshot screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
+                    screenshot.SaveAsFile("omg.jpg", ImageFormat.Jpeg);
+                }
+
                 string hash = bit.GetHashCode().ToString();
                 if (db.Captchas.FirstOrDefault(x => x.Hash == ms) != null)
                 {
