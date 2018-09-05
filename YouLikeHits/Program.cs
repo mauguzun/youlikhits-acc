@@ -115,6 +115,7 @@ namespace YouLikeHits
         {
             foreach (var line in repo.Accounts)
             {
+                Thread.Sleep(new TimeSpan(0, 0, 7));
                 System.Diagnostics.Process.Start("YouLikeHits.exe", line.Number.ToString());
 
             }
