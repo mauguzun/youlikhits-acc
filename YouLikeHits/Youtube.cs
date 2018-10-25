@@ -34,7 +34,7 @@ namespace YouLikeHits
             {
                 try
                 {
-                    driver.Url = "https://youlikehits.com/bonuspoints.php";
+                    driver.Url = "http://youlikehits.com/bonuspoints.php";
                     driver.FindElementByCssSelector(".buybutton").Click();
 
                     Console.WriteLine("Bonuses");
@@ -53,7 +53,7 @@ namespace YouLikeHits
         {
             Thread.Sleep(TimeSpan.FromSeconds(5));
 
-            driver.Url = "https://youlikehits.com/youtubenew2.php";
+            driver.Url = "http://youlikehits.com/youtubenew2.php";
             if (driver.FindElementsByName("answer").Count != 0)
                 SetAnswer();
 
@@ -108,18 +108,22 @@ namespace YouLikeHits
                             Console.Clear();
 
                     }
-
-
+                  
                     driver.SwitchTo().Window(driver.WindowHandles.First());
+                  
+
+                    
                     // Thread.Sleep(TimeSpan.FromSeconds(5));
                 }
                 catch (Exception ex)
                 {
+                   
                     Failed();
+                    
                     driver.Navigate().Refresh();
-                    // 
-
+ 
                     driver.SwitchTo().Window(driver.WindowHandles.First());
+
                 }
 
             }
@@ -239,7 +243,7 @@ namespace YouLikeHits
             string hash = bit.GetHashCode().ToString();
             var result = db.Captchas.FirstOrDefault(x => x.Hash == ms);
             string answer = null;
-            if (result != null && attemps < 4)
+            if (result != null && attemps < 2)
             {
                 answer = result.Result;
                 Console.WriteLine($"finded in db{answer}");
@@ -256,7 +260,7 @@ namespace YouLikeHits
                 Console.WriteLine(answer);
                 driver.FindElementByName("answer").SendKeys(answer);
                 driver.FindElementByName("submit").Click();
-
+                attemps = 0;
             }
             Console.WriteLine("Yahoo");
             Thread.Sleep(TimeSpan.FromSeconds(1));
