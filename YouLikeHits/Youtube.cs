@@ -99,29 +99,68 @@ namespace YouLikeHits
                     last = driver.FindElementByCssSelector(".followbutton").GetAttribute("onclick");
                     Console.WriteLine("Sleep 61");
 
-                    for (int i = 0; i < 62; i++)
+                    int timeout = 0;
+                    int standart = 62;
+                    for (int i = 0; i < standart; i++)
                     {
                         Thread.Sleep(TimeSpan.FromSeconds(1));
 
-                        Console.Write($"{i}");
+                        Console.Write($"{i} / {timeout - standart}");
+                      
                         if (i % 10 == 0)
                             Console.Clear();
 
-                    }
-                  
-                    driver.SwitchTo().Window(driver.WindowHandles.First());
-                  
+                        Console.WriteLine($"await start {standart - timeout}");
+                        if (timeout == 0)
+                        {
+                            try
+                            {
 
-                    
+                                var countrer = driver.FindElementByCssSelector("font[color='maroon']");
+                                if (countrer != null)
+                                {
+                                    var text = countrer.Text;
+                                    var right = text.Split('/');
+                                    var adfads1 = 1;
+                                    Int32.TryParse(right[1], out timeout);
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+
+
+                        }
+
+                    }
+
+                    if (timeout > 60)
+                    {
+                        Console.WriteLine($"await start {timeout -standart}");
+                        for (int i = 0; i < timeout - standart; i++)
+                        {
+                            Thread.Sleep(TimeSpan.FromSeconds(1));
+
+                            Console.WriteLine($" await plus {i} / {timeout-standarttimeout}" );
+                            if (i % 10 == 0)
+                                Console.Clear();
+                            //  todo 
+                        }
+
+                        driver.SwitchTo().Window(driver.WindowHandles.First());
+
+                    }
+
                     // Thread.Sleep(TimeSpan.FromSeconds(5));
                 }
                 catch (Exception ex)
                 {
-                   
+
                     Failed();
-                    
+
                     driver.Navigate().Refresh();
- 
+
                     driver.SwitchTo().Window(driver.WindowHandles.First());
 
                 }
@@ -189,7 +228,7 @@ namespace YouLikeHits
                 }
             }
 
-            if (!haveError  )
+            if (!haveError)
             {
                 if (bit == null)
                 {
@@ -254,7 +293,7 @@ namespace YouLikeHits
             }
             else
             {
-               //  Console.Beep(333, 333);
+                //  Console.Beep(333, 333);
                 //answer = Console.ReadLine();
                 answer = new Random().Next(1, 10).ToString();
                 Console.WriteLine(answer);

@@ -28,6 +28,12 @@ namespace YouLikeHits
 
         static void Main(string[] args)
         {
+
+
+
+            CaptchaContext captchaContext = new CaptchaContext();
+            Console.WriteLine(captchaContext.Database.Connection.ConnectionString); ;
+
             Clear();
 
 
@@ -280,7 +286,7 @@ namespace YouLikeHits
 
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://accs.somee.com/Api/YouApi/1");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://denisacc.somee.com/Api/YouApi/1");
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "PUT";
 
@@ -293,6 +299,8 @@ namespace YouLikeHits
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
                     var responseText = streamReader.ReadToEnd();
+                    Console.WriteLine("post response");
+                    Console.WriteLine(responseText);
                     //Now you have your response.
                     //or false depending on information in the response
                     return true;
