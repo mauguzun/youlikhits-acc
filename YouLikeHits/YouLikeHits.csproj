@@ -177,7 +177,7 @@
   <ItemGroup>
     <Compile Include="AccRepo.cs" />
     <Compile Include="Captchas.cs" />
-    <Compile Include="CapthcaContext.cs" />
+    <Compile Include="CaptchaModel.cs" />
     <Compile Include="Model\YoulikeHits.cs" />
     <Compile Include="Model\YouPinterest.cs" />
     <Compile Include="Pinterest.cs" />

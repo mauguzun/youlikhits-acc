@@ -1,4 +1,6 @@
 ﻿using AccountManager.Models;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
@@ -29,10 +31,12 @@ namespace YouLikeHits
         static void Main(string[] args)
         {
 
+            string connectionString = "mongodb+srv://denis:penis@denispenis-gv66s.mongodb.net/test?retryWrites=true";
+            MongoClient client = new MongoClient(connectionString);
+            IMongoDatabase database = client.GetDatabase("captcha");
+            IMongoCollection<Captcha> col = database.GetCollection<Captcha>("captchas");
 
 
-            CaptchaContext captchaContext = new CaptchaContext();
-            Console.WriteLine(captchaContext.Database.Connection.ConnectionString); ;
 
             Clear();
 
@@ -80,7 +84,7 @@ namespace YouLikeHits
                 {
                     Console.WriteLine($"{line.Number},{line.Login},{line.Password}");
                 }
-                Console.WriteLine("pls choose account");
+                Console.WriteLine("pls choose account ,all,grab.timer");
 
                 string number = Console.ReadLine().Trim();
 
@@ -156,7 +160,7 @@ namespace YouLikeHits
 
         private static void Login()
         {
-            driver.Url = "http://youlikehits.com";
+            driver.Url = "https://www.youlikehits.com/login.php";
             driver.FindElementById("username").SendKeys(selectedAcc.Login);
             driver.FindElementById("password").SendKeys(selectedAcc.Password);
             driver.FindElementByCssSelector("input[value=Login]").Click();

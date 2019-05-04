@@ -18,7 +18,7 @@ namespace YouLikeHits
     {
         RemoteWebDriver driver;
         string last = null;
-        CaptchaContext db;
+        CaptchaModel db;
         bool bonus = false;
         byte[] ms;
         int attemps = 0;
@@ -29,7 +29,7 @@ namespace YouLikeHits
         {
 
             this.driver = driver;
-            db = new CaptchaContext();
+            db = new CaptchaModel();
             if (bonus == false)
             {
                 try
@@ -121,7 +121,7 @@ namespace YouLikeHits
                                 {
                                     var text = countrer.Text;
                                     var right = text.Split('/');
-                                    var adfads1 = 1;
+
                                     Int32.TryParse(right[1], out timeout);
                                 }
                             }
@@ -142,7 +142,7 @@ namespace YouLikeHits
                         {
                             Thread.Sleep(TimeSpan.FromSeconds(1));
 
-                            Console.WriteLine($" await plus {i} / {timeout-standarttimeout}" );
+                            Console.WriteLine($" await plus {i} / {timeout- standart}" );
                             if (i % 10 == 0)
                                 Console.Clear();
                             //  todo 
@@ -237,15 +237,15 @@ namespace YouLikeHits
                 }
 
                 string hash = bit.GetHashCode().ToString();
-                if (db.Captchas.FirstOrDefault(x => x.Hash == ms) != null)
+                if (db.FindCaptcha( ms) != null)
                 {
                     // ok we have already 
 
                 }
                 else if (answer != null)
                 {
-                    db.Captchas.Add(new Captcha() { Hash = ms, Result = answer });
-                    db.SaveChanges();
+                    db.Add(new Captcha() { Hash = ms, Result = answer });
+                   
                     Console.WriteLine("*\n saved * \n");
                 }
 
@@ -280,7 +280,7 @@ namespace YouLikeHits
 
             Console.WriteLine("answer :");
             string hash = bit.GetHashCode().ToString();
-            var result = db.Captchas.FirstOrDefault(x => x.Hash == ms);
+            var result = db.FindCaptcha( ms);
             string answer = null;
             if (result != null && attemps < 2)
             {
@@ -293,10 +293,11 @@ namespace YouLikeHits
             }
             else
             {
-                //  Console.Beep(333, 333);
-                //answer = Console.ReadLine();
+                // Console.Beep(333, 333);
+                // answer = Console.ReadLine();
                 answer = new Random().Next(1, 10).ToString();
-                Console.WriteLine(answer);
+                //answer = new Random().Next(1, 10).ToString();
+               Console.WriteLine(answer);
                 driver.FindElementByName("answer").SendKeys(answer);
                 driver.FindElementByName("submit").Click();
                 attemps = 0;
