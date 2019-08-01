@@ -32,8 +32,22 @@ namespace YouLikeHits
         {
 
 
-         //   Clear();
+            //   Clear();
             AccRepo repo = new AccRepo();
+            var cookiesAcc = new AccountManager().Accounts();
+            List<Account> newList = new List<Account>();
+
+            foreach (Account acc in repo.Accounts)
+            {
+                if (cookiesAcc.Contains(acc.Login))
+                {
+                    newList.Add(acc);
+                }
+            }
+
+
+            repo.Accounts = newList;
+            repo.Save();
 
             if (args.Count() != 0)
             {
@@ -61,7 +75,7 @@ namespace YouLikeHits
                     Console.ReadLine();
 
                 }
-                else if( number == "log")
+                else if (number == "log")
                 {
                     AccountManager manager = new AccountManager();
                     manager.LoginAll();
@@ -90,14 +104,15 @@ namespace YouLikeHits
                 Console.Title = selectedAcc.Login;
                 Youtube youtube = new Youtube(driver);
                 youtube.Follow();
-            }else
+            }
+            else
             {
-                Console.Title =  "user can`t login" + selectedAcc.Login;
+                Console.Title = "user can`t login" + selectedAcc.Login;
             }
 
-          
 
-           // p.Follow();
+
+            // p.Follow();
 
             //  Console.WriteLine("1.pinterest \n 2.youtube");
 
@@ -107,7 +122,7 @@ namespace YouLikeHits
             //p.Login();
             //p.Follow();
 
-            
+
         }
 
         private static PhantomJSDriverService GetJsSettingsPhantom()
@@ -141,7 +156,7 @@ namespace YouLikeHits
 
         }
 
-        private static bool  Login()
+        private static bool Login()
         {
             driver.Url = "https://www.youlikehits.com/login.php";
             driver.FindElementById("username").SendKeys(selectedAcc.Login.Trim());
@@ -150,7 +165,7 @@ namespace YouLikeHits
 
 
             driver.Url = "https://www.youlikehits.com/stats.php";
-            
+
             var cookies = driver.Manage().Cookies.AllCookies;
             if (cookies.Where(x => x.Name == "tfuser").FirstOrDefault() != null)
                 return true;
@@ -162,22 +177,22 @@ namespace YouLikeHits
 
         private static void Grab(AccRepo repo)
         {
-         
+
 
             foreach (string oneAccoint in new AccountManager().Accounts())
             {
 
 
                 Account acc = repo.Accounts.Where(x => x.Login == oneAccoint).FirstOrDefault();
-              
+
                 try
                 {
-                   
+
                     //sendAccount = acc;
                     //Login();
 
-                     YoulikeHits sendAccount = new YoulikeHits();
-                   
+                    YoulikeHits sendAccount = new YoulikeHits();
+
                     //sendAccount.Login = acc.Login;
                     //sendAccount.Password = acc.Password;
                     driver = new AccountManager().GetLoginedDriver(acc);
@@ -222,7 +237,7 @@ namespace YouLikeHits
 
                 catch (Exception e)
                 {
-                    
+
                     Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
                     screenshot.SaveAsFile("cantlogin.jpg", ImageFormat.Jpeg);
 

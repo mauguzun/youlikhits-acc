@@ -9,13 +9,15 @@ namespace YouLikeHits
 {
     class AccRepo
     {
+        const string Path = "Acc.txt";
         public List<Account> Accounts { get; set; }
 
         public AccRepo()
         {
             this.Accounts = new List<Account>();
 
-            string[] lines = File.ReadAllLines("Acc.txt");
+           
+            string[] lines = File.ReadAllLines(Path);
             int num   = 1; 
             foreach(string line in lines)
             {
@@ -28,7 +30,14 @@ namespace YouLikeHits
         }
         public void Save()
         {
-
+            if (this.Accounts != null)
+            {
+                File.Delete(Path);
+                foreach(Account acc in Accounts)
+                {
+                    File.AppendAllText(Path, acc.Login + ":" + acc.Password + Environment.NewLine);
+                }
+            }
         }
     }
 }
