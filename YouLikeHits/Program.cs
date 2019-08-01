@@ -31,52 +31,20 @@ namespace YouLikeHits
         static void Main(string[] args)
         {
 
-            string connectionString = "mongodb+srv://denis:penis@denispenis-gv66s.mongodb.net/test?retryWrites=true";
-            MongoClient client = new MongoClient(connectionString);
-            IMongoDatabase database = client.GetDatabase("captcha");
-            IMongoCollection<Captcha> col = database.GetCollection<Captcha>("captchas");
 
-
-
-            Clear();
-
-
-
-            try
-            {
-                ChromeOptions options = new ChromeOptions();
-                options.AddArgument("--mute-audio");
-                //options.AddArgument("--window-position=-32000,-32000");
-                // driver = new ChromeDriver(options);
-                driver = new PhantomJSDriver(GetJsSettingsPhantom());
-            }
-            catch
-            {
-
-                //ChromeOptions options = new ChromeOptions();
-                //options.AddArgument("--mute-audio");
-                //options.AddArgument("--window-position=-32000,-32000");
-                //driver = new ChromeDriver(options);
-            }
-
-
+         //   Clear();
             AccRepo repo = new AccRepo();
 
             if (args.Count() != 0)
             {
                 if (args[0] == "all")
                 {
-                    // run new instance :)
                     OpenAll(repo);
-
                 }
                 else
                 {
-
                     defaultNumber = Int32.Parse(args[0]);
                 }
-
-
             }
             else
             {
@@ -84,19 +52,24 @@ namespace YouLikeHits
                 {
                     Console.WriteLine($"{line.Number},{line.Login},{line.Password}");
                 }
-                Console.WriteLine("pls choose account ,all,grab.timer");
+                Console.WriteLine("pls choose account ,all,grab,timer,login");
 
                 string number = Console.ReadLine().Trim();
-
-
                 if (number == "all")
                 {
-                    OpenAll(repo); Console.ReadLine();
+                    OpenAll(repo);
+                    Console.ReadLine();
 
+                }
+                else if( number == "log")
+                {
+                    AccountManager manager = new AccountManager();
+                    manager.LoginAll();
                 }
                 else if (number == "grab")
                 {
-                    Grab(repo); Console.ReadLine();
+                    Grab(repo);
+                    Console.ReadLine();
                 }
                 else if (number == "timer")
                 {
@@ -109,11 +82,22 @@ namespace YouLikeHits
 
             }
 
-
+            AccountManager accountManager = new AccountManager();
             selectedAcc = repo.Accounts.Where(y => y.Number == defaultNumber).FirstOrDefault();
-            Login();
-            Console.Title = selectedAcc.Login;
+            driver = accountManager.GetLoginedDriver(selectedAcc);
+            if (accountManager.Logined(selectedAcc))
+            {
+                Console.Title = selectedAcc.Login;
+                Youtube youtube = new Youtube(driver);
+                youtube.Follow();
+            }else
+            {
+                Console.Title =  "user can`t login" + selectedAcc.Login;
+            }
 
+          
+
+           // p.Follow();
 
             //  Console.WriteLine("1.pinterest \n 2.youtube");
 
@@ -123,8 +107,7 @@ namespace YouLikeHits
             //p.Login();
             //p.Follow();
 
-            Youtube youtube = new Youtube(driver);
-            youtube.Follow();
+            
         }
 
         private static PhantomJSDriverService GetJsSettingsPhantom()
@@ -158,26 +141,46 @@ namespace YouLikeHits
 
         }
 
-        private static void Login()
+        private static bool  Login()
         {
             driver.Url = "https://www.youlikehits.com/login.php";
-            driver.FindElementById("username").SendKeys(selectedAcc.Login);
-            driver.FindElementById("password").SendKeys(selectedAcc.Password);
+            driver.FindElementById("username").SendKeys(selectedAcc.Login.Trim());
+            driver.FindElementById("password").SendKeys(selectedAcc.Password.Trim());
             driver.FindElementByCssSelector("input[value=Login]").Click();
+
+
+            driver.Url = "https://www.youlikehits.com/stats.php";
+            
+            var cookies = driver.Manage().Cookies.AllCookies;
+            if (cookies.Where(x => x.Name == "tfuser").FirstOrDefault() != null)
+                return true;
+
+
+            return false;
+
         }
 
         private static void Grab(AccRepo repo)
         {
-            foreach (Account acc in repo.Accounts)
+         
+
+            foreach (string oneAccoint in new AccountManager().Accounts())
             {
+
+
+                Account acc = repo.Accounts.Where(x => x.Login == oneAccoint).FirstOrDefault();
+              
                 try
                 {
-                    selectedAcc = acc;
-                    Login();
+                   
+                    //sendAccount = acc;
+                    //Login();
 
-                    YoulikeHits sendAccount = new YoulikeHits();
-                    sendAccount.Login = acc.Login;
-                    sendAccount.Password = acc.Password;
+                     YoulikeHits sendAccount = new YoulikeHits();
+                   
+                    //sendAccount.Login = acc.Login;
+                    //sendAccount.Password = acc.Password;
+                    driver = new AccountManager().GetLoginedDriver(acc);
 
 
 
@@ -219,7 +222,7 @@ namespace YouLikeHits
 
                 catch (Exception e)
                 {
-
+                    
                     Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
                     screenshot.SaveAsFile("cantlogin.jpg", ImageFormat.Jpeg);
 

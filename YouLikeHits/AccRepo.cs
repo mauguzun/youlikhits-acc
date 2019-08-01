@@ -26,5 +26,9 @@ namespace YouLikeHits
             }
 
         }
+        public void Save()
+        {
+
+        }
     }
 }

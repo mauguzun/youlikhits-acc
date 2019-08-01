@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YouLikeHits
 {
-    class Account
+    public class Account
     {
 
         public string Login { get; set; }

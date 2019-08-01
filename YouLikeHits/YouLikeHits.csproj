@@ -175,9 +175,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountManager.cs" />
     <Compile Include="AccRepo.cs" />
     <Compile Include="Captchas.cs" />
     <Compile Include="CaptchaModel.cs" />
+    <Compile Include="ChromeInstance.cs" />
+    <Compile Include="DCookie.cs" />
     <Compile Include="Model\YoulikeHits.cs" />
     <Compile Include="Model\YouPinterest.cs" />
     <Compile Include="Pinterest.cs" />

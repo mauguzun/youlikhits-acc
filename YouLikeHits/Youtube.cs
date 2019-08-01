@@ -293,9 +293,9 @@ namespace YouLikeHits
             }
             else
             {
-                // Console.Beep(333, 333);
-                // answer = Console.ReadLine();
-                answer = new Random().Next(1, 10).ToString();
+                Console.Beep(333, 333);
+                answer = Console.ReadLine();
+               // answer = new Random().Next(1, 10).ToString();
                 //answer = new Random().Next(1, 10).ToString();
                Console.WriteLine(answer);
                 driver.FindElementByName("answer").SendKeys(answer);

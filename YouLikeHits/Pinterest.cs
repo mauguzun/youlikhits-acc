@@ -1,50 +1,65 @@
 ﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace YouLikeHits
 {
     class Pinterest
     {
         static string acc;
-        ChromeDriver driver;
-        public Pinterest(ChromeDriver driver)
+        RemoteWebDriver driver;
+        public Pinterest(RemoteWebDriver driver)
         {
             this.driver = driver;
         }
 
 
-        public void Login()
+        public bool Login(string accountPath)
         {
-            while (true)
+            try
             {
-                try
+                driver.Url = "http://pinterest.com";
+                List<DCookie> dCookie;
+                using (var reader = new StreamReader(accountPath))
                 {
-                    Console.WriteLine("login:passwod");
-                    string result = Console.ReadLine().Trim();
-
-                    string[] emailPass = result.Split(':');
-
-                    driver.Url = "https://pinterest.com/login";
-                    driver.FindElementById("email").SendKeys(emailPass[0]);
-                    driver.FindElementById("password").SendKeys(emailPass[1]);
-                    driver.FindElementByCssSelector("button.red").Click();
-                    Thread.Sleep(TimeSpan.FromSeconds(5));
-
-                    Console.WriteLine("ok?");
-                    if (Console.ReadLine().Contains("y"))
-                        break;
-                }
-                catch
-                {
-
+                    XmlSerializer deserializer = new XmlSerializer(typeof(List<DCookie>),
+                        new XmlRootAttribute("list"));
+                    dCookie = (List<DCookie>)deserializer.Deserialize(reader);
                 }
 
+                foreach (var cookie in dCookie)
+                {
+                    driver.Manage().Cookies.AddCookie(cookie.GetCookie());
+                }
+
+      
+
+                Console.WriteLine("logined");
+                Thread.Sleep(new TimeSpan(0, 0, 5));
+
+                if (driver.Manage().Cookies.GetCookieNamed("_auth").Value.ToString() == "1")
+                {
+                    return true;
+                }
+                else
+                {
+
+                    return false;
+                }
             }
+            catch
+            {
+                return false;
+            }
+
+
         }
 
         public void Follow()
