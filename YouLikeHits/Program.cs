@@ -34,20 +34,20 @@ namespace YouLikeHits
 
             //   Clear();
             AccRepo repo = new AccRepo();
-            var cookiesAcc = new AccountManager().Accounts();
-            List<Account> newList = new List<Account>();
+            //var cookiesAcc = new AccountManager().Accounts();
+            //List<Account> newList = new List<Account>();
 
-            foreach (Account acc in repo.Accounts)
-            {
-                if (cookiesAcc.Contains(acc.Login))
-                {
-                    newList.Add(acc);
-                }
-            }
+            //foreach (Account acc in repo.Accounts)
+            //{
+            //    if (cookiesAcc.Contains(acc.Login))
+            //    {
+            //        newList.Add(acc);
+            //    }
+            //}
 
 
-            repo.Accounts = newList;
-            repo.Save();
+            //repo.Accounts = newList;
+            //repo.Save();
 
             if (args.Count() != 0)
             {

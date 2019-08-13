@@ -150,10 +150,8 @@ C:\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csproj.CopyComplete
 C:\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.exe
 C:\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.pdb
 C:\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csprojAssemblyReference.cache
-C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.exe.config
-C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csproj.CoreCompileInputs.cache
-C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.exe
-C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.pdb
+C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\MongoDB.Driver.dll
+C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\System.Buffers.xml
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\phantomjs.exe
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\Acc.txt
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\phantomjs-license.txt
@@ -289,7 +287,6 @@ C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\IKVM.Runtime.dll
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\IKVM.Runtime.JNI.dll
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\MongoDB.Bson.dll
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\MongoDB.Driver.Core.dll
-C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\MongoDB.Driver.dll
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\System.Buffers.dll
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\WebDriver.dll
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\DnsClient.xml
@@ -298,7 +295,10 @@ C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\EntityFramework.SqlServer.
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\MongoDB.Bson.xml
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\MongoDB.Driver.xml
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\MongoDB.Driver.Core.xml
-C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\System.Buffers.xml
 C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\WebDriver.xml
+C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.exe.config
+C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csproj.CoreCompileInputs.cache
 C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csproj.CopyComplete
+C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.exe
+C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.pdb
 C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csprojAssemblyReference.cache

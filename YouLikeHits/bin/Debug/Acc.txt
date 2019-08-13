@@ -1,4 +1,4 @@
-dshabalin@lifa.lv:password
+﻿dshabalin@lifa.lv:password
 mauguzun_test:password
 anatolv6r@bk.ru:password
 makkakoyr@list.ru:password
