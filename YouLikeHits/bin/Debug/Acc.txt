@@ -1,11 +1,9 @@
-﻿dshabalin@lifa.lv:password
-mauguzun_test:password
+﻿mauguzun_test:password
 anatolv6r@bk.ru:password
 makkakoyr@list.ru:password
 timofeyvoh8wp@inbox.ru:passwor
 ober23lad@bk.ru:password
 palgatspw@inbox.ru:password
-abdul-vakhid86p@list.ru:password
 polatcq3@list.ru:password
 khidzhiranl2bar@list.ru:password
 irena9xiba@list.ru:password
@@ -13,3 +11,4 @@ ravilberbke@inbox.ru:password
 teodoramyasnikova8547@list.ru:passwod
 miheevvergilii520@list.ru:password
 lovedrugs@inbox.lv:password
+dshabalin@lifa.lv:password

@@ -20,8 +20,11 @@ namespace YouLikeHits
         string last = null;
         CaptchaModel db;
         bool bonus = false;
+        
         byte[] ms;
         int attemps = 0;
+        public bool Manual { get; set; } = false;
+        
 
 
         System.Drawing.Bitmap bit;
@@ -30,6 +33,10 @@ namespace YouLikeHits
 
             this.driver = driver;
             db = new CaptchaModel();
+
+            Manual = File.Exists("manual");
+            string title = Manual ? "Manaual " : "Auto ";
+           
             if (bonus == false)
             {
                 try
@@ -80,8 +87,20 @@ namespace YouLikeHits
                 {
                     //IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
                     //string count = (string)js.ExecuteScript("return document.getElementById('currentpoints')");
+                    var scores = driver.FindElementsByCssSelector("font[style='font-size:40px;']");
+                    if (scores  != null && scores.Count  == 2  )
+                    {
+                        Console.Title = Program.selectedAcc.Login + "/" + scores[0].Text + "/" + scores[1].Text + "/"  + bonus.ToString();
 
-                    Console.Title = Program.selectedAcc.Login + "/" + driver.FindElementById("currentpoints").Text + "/" + bonus.ToString();
+
+                    }
+                    else
+                    {
+                        Console.Title = Program.selectedAcc.Login + "/" + driver.FindElementById("currentpoints").Text + "/" + bonus.ToString();
+
+                    }
+
+
 
                     Console.WriteLine(Program.acc);
                     if (driver.FindElementsByName("answer").Count != 0)
@@ -235,8 +254,10 @@ namespace YouLikeHits
                     Screenshot screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
                     screenshot.SaveAsFile("omg.jpg", ImageFormat.Jpeg);
                 }
-
+               
                 string hash = bit.GetHashCode().ToString();
+               
+               
                 if (db.FindCaptcha( ms) != null)
                 {
                     // ok we have already 
@@ -276,7 +297,14 @@ namespace YouLikeHits
                 }
             }
 
-
+            var scores = driver.FindElementsByCssSelector("font[style='font-size:40px']");
+            if (scores != null )
+            {
+                foreach(var score in scores)
+                {
+                    Console.WriteLine(score.Text);
+                }
+            }
 
             Console.WriteLine("answer :");
             string hash = bit.GetHashCode().ToString();
@@ -285,19 +313,29 @@ namespace YouLikeHits
             if (result != null && attemps < 2)
             {
                 answer = result.Result;
-                Console.WriteLine($"finded in db{answer}");
+                Console.WriteLine($"finded in db {answer}");
                 driver.FindElementByName("answer").SendKeys(answer);
                 driver.FindElementByName("submit").Click();
+                Console.WriteLine($"clicked .... ");
                 attemps++;
 
             }
             else
             {
-                //Console.Beep(333, 333);
-                //answer = Console.ReadLine();
-               // answer = new Random().Next(1, 10).ToString();
-               answer = new Random().Next(1, 10).ToString();
-               Console.WriteLine(answer);
+              
+                // answer = new Random().Next(1, 10).ToString();
+                //  answer = new Random().Next(1, 10).ToString();
+
+                if (Manual)
+                {
+                    Console.Beep(333, 333);
+                    answer = Console.ReadLine();
+                }
+                else
+                {
+                    answer = new Random().Next(1, 10).ToString();
+                }
+                Console.WriteLine(answer);
                 driver.FindElementByName("answer").SendKeys(answer);
                 driver.FindElementByName("submit").Click();
                 attemps = 0;

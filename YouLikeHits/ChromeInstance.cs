@@ -19,8 +19,8 @@ namespace YouLikeHits
 
             ChromeOptions options = new ChromeOptions();
 
-            //if (!visible)
-            options.AddArguments("headless");
+            if (!visible)
+                options.AddArguments("headless");
 
             options.AddArgument("--window-size=1920,4080");
             ChromeDriver driver = new ChromeDriver(driverService, options);

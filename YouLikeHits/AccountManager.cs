@@ -34,6 +34,7 @@ namespace YouLikeHits
             {
                 CheckAccount(acc);
                 Console.WriteLine("correct y? / n ?");
+                Console.WriteLine(acc.Login + acc.Password);
                 if (Console.ReadLine().Trim() == "y")
                 {
                     this.Save(acc);

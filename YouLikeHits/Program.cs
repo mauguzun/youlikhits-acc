@@ -28,11 +28,13 @@ namespace YouLikeHits
         static RemoteWebDriver driver;
         public static int defaultNumber = 1;
 
+
+
         static void Main(string[] args)
         {
 
 
-            //   Clear();
+       // Clear();
             AccRepo repo = new AccRepo();
             //var cookiesAcc = new AccountManager().Accounts();
             //List<Account> newList = new List<Account>();
@@ -66,7 +68,7 @@ namespace YouLikeHits
                 {
                     Console.WriteLine($"{line.Number},{line.Login},{line.Password}");
                 }
-                Console.WriteLine("pls choose account ,all,grab,timer,login");
+                Console.WriteLine("pls choose account ,all,grab,timer,login,clear");
 
                 string number = Console.ReadLine().Trim();
                 if (number == "all")
@@ -90,6 +92,10 @@ namespace YouLikeHits
                     Timer timer = new Timer(MakeTimer, repo, new TimeSpan(0, 0, 0), new TimeSpan(0, 15, 0));
                     Console.ReadLine();
                 }
+                else if (number == "clear")
+                {
+                    Clear();
+                }
 
                 defaultNumber = 1;
                 Int32.TryParse(number, out defaultNumber);
@@ -102,7 +108,12 @@ namespace YouLikeHits
             if (accountManager.Logined(selectedAcc))
             {
                 Console.Title = selectedAcc.Login;
-                Youtube youtube = new Youtube(driver);
+
+
+                Youtube youtube = new Youtube(driver); 
+
+           
+                
                 youtube.Follow();
             }
             else
@@ -179,15 +190,13 @@ namespace YouLikeHits
         {
 
 
-            foreach (string oneAccoint in new AccountManager().Accounts())
+            foreach (Account acc in repo.Accounts)
             {
 
 
-                Account acc = repo.Accounts.Where(x => x.Login == oneAccoint).FirstOrDefault();
-
                 try
                 {
-
+                    Console.WriteLine($"check {acc.Login}");
                     //sendAccount = acc;
                     //Login();
 
@@ -196,19 +205,13 @@ namespace YouLikeHits
                     //sendAccount.Login = acc.Login;
                     //sendAccount.Password = acc.Password;
                     driver = new AccountManager().GetLoginedDriver(acc);
-
-
-
-
                     driver.Url = "https://youlikehits.com/addpinterest.php";
 
                     var cardDivs = driver.FindElementsByCssSelector(".cards");
                     foreach (RemoteWebElement item in cardDivs)
                     {
                         var userName = item.FindElementsByCssSelector("b");
-
                         sendAccount.YouPinterests.Add(new YouPinterest() { AccountUserName = userName[0].Text });
-
 
                     }
                     driver.Url = "https://youlikehits.com/stats.php";
@@ -218,10 +221,7 @@ namespace YouLikeHits
                         Console.WriteLine($"{acc.Login}:{driver.FindElementByCssSelector("center a[href = 'buypoints.php'] font").Text}");
                         sendAccount.Point = driver.FindElementByCssSelector("center a[href = 'buypoints.php'] font").Text;
                     }
-                    JavaScriptSerializer js = new JavaScriptSerializer();
-                    string result = js.Serialize(sendAccount);
-
-                    UpdateServer(result);
+   
 
 
 
