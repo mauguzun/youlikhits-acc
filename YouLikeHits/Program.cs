@@ -3,7 +3,6 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
@@ -101,26 +100,39 @@ namespace YouLikeHits
                 Int32.TryParse(number, out defaultNumber);
 
             }
+            Console.WriteLine("en  moment");
 
-            AccountManager accountManager = new AccountManager();
-            selectedAcc = repo.Accounts.Where(y => y.Number == defaultNumber).FirstOrDefault();
-            driver = accountManager.GetLoginedDriver(selectedAcc);
-            if (accountManager.Logined(selectedAcc))
+            while(true)
             {
-                Console.Title = selectedAcc.Login;
+                AccountManager accountManager = new AccountManager();
+                selectedAcc = repo.Accounts.Where(y => y.Number == defaultNumber).FirstOrDefault();
+                driver = accountManager.GetLoginedDriver(selectedAcc);
+                if (accountManager.Logined(selectedAcc))
+                {
+                    Console.Title = selectedAcc.Login;
+                    Youtube youtube = new Youtube(driver);
+                    try
+                    {
+                        youtube.Follow();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
 
-
-                Youtube youtube = new Youtube(driver); 
-
-           
-                
-                youtube.Follow();
+                }
+                else
+                {
+                    Console.Title = "user can`t login" + selectedAcc.Login;
+                    break;
+                }
             }
-            else
-            {
-                Console.Title = "user can`t login" + selectedAcc.Login;
-            }
 
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
+
+            Console.ReadKey();
+            driver.Quit();
+            Console.ReadKey();
 
 
             // p.Follow();
@@ -135,19 +147,19 @@ namespace YouLikeHits
 
 
         }
-
-        private static PhantomJSDriverService GetJsSettingsPhantom()
-        {
-            var serviceJs = PhantomJSDriverService.CreateDefaultService();
-            serviceJs.HideCommandPromptWindow = true;
-            serviceJs.IgnoreSslErrors = true;
-            return serviceJs;
-        }
+        
+        //private static PhantomJSDriverService GetJsSettingsPhantom()
+        //{
+        //    var serviceJs = PhantomJSDriverService.CreateDefaultService();
+        //    serviceJs.HideCommandPromptWindow = true;
+        //    serviceJs.IgnoreSslErrors = true;
+        //    return serviceJs;
+        //}
 
         private static void MakeTimer(object state)
         {
             KillAllPhantom();
-            driver = new PhantomJSDriver(GetJsSettingsPhantom());
+            driver =  ChromeInstance.Driver();
             AccRepo repo = (AccRepo)state;
             Grab(repo);
             Console.ReadLine();
@@ -239,7 +251,7 @@ namespace YouLikeHits
                 {
 
                     Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                    screenshot.SaveAsFile("cantlogin.jpg", ImageFormat.Jpeg);
+                    screenshot.SaveAsFile("cantlogin.jpg", ScreenshotImageFormat.Jpeg);
 
                     Console.WriteLine(e.Message);
                     Console.WriteLine("omg");
@@ -292,7 +304,6 @@ namespace YouLikeHits
             try
             {
                 driver.Quit();
-                File.Delete($"{Program.IMG}\\{Program.guid}.jpg");
                 Console.WriteLine("exit");
             }
             catch

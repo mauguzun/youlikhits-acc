@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium;
 using System;
@@ -122,7 +121,7 @@ namespace YouLikeHits
          
             phantomJs.Url = "https://youlikehits.com/";
                OpenQA.Selenium.Screenshot screenshot = ((ITakesScreenshot)phantomJs).GetScreenshot();
-            screenshot.SaveAsFile("cookie.jpg", ImageFormat.Jpeg);
+            screenshot.SaveAsFile("cookie.jpg", ScreenshotImageFormat.Jpeg);
             return phantomJs;
 
         }

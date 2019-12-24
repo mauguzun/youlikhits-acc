@@ -302,3 +302,8 @@ C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csproj.CopyCom
 C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.exe
 C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.pdb
 C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csprojAssemblyReference.cache
+C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\Crc32C.NET.dll
+C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\SharpCompress.dll
+C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\Snappy.NET.dll
+C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\Crc32C.NET.xml
+C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\Snappy.NET.xml

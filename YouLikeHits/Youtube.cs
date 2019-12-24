@@ -10,7 +10,6 @@ using OpenQA.Selenium;
 using System.IO;
 using System.Drawing.Imaging;
 using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.PhantomJS;
 
 namespace YouLikeHits
 {
@@ -252,7 +251,7 @@ namespace YouLikeHits
                 if (bit == null)
                 {
                     Screenshot screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
-                    screenshot.SaveAsFile("omg.jpg", ImageFormat.Jpeg);
+                    screenshot.SaveAsFile("omg.jpg", ScreenshotImageFormat.Jpeg);
                 }
                
                 string hash = bit.GetHashCode().ToString();
@@ -350,7 +349,7 @@ namespace YouLikeHits
         {
             string filename = $"{Program.IMG}\\{Program.guid}.jpg";
             Screenshot screenshot = ((ITakesScreenshot)this.driver).GetScreenshot();
-            screenshot.SaveAsFile(filename, ImageFormat.Jpeg);
+            screenshot.SaveAsFile(filename, ScreenshotImageFormat.Jpeg);
 
             Image img = Bitmap.FromFile(filename);
             Rectangle rect = new Rectangle();
