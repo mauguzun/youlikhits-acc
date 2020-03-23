@@ -52,3 +52,20 @@
 [1214/173400.512:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
 [1214/173410.726:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
 [1214/173411.566:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0207/092547.913:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0207/092550.704:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0209/132200.895:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0209/132211.420:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0209/132212.241:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0209/132219.864:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0216/104644.123:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0220/143455.681:ERROR:process_info.cc(359)] UncheckedAllocate
+[0220/143455.712:ERROR:file_io_win.cc(161)] CreateFile D:\temp\scoped_dir164924_12039520\Crashpad\settings.dat: The system cannot find the file specified. (0x2)
+[0226/222207.112:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0226/222215.032:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0226/222218.733:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0227/101201.961:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0301/031449.752:ERROR:crashpad_client_win.cc(505)] CreateProcess: The paging file is too small for this operation to complete. (0x5AF)
+[0302/121545.563:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0302/121600.143:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0302/121621.398:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports

@@ -101,8 +101,8 @@ namespace YouLikeHits
 
 
             //   RemoteWebDriver phantomJs = new PhantomJSDriver();
-            RemoteWebDriver phantomJs = ChromeInstance.Driver();
-            phantomJs.Url = "http://youlikehits.com/";
+            RemoteWebDriver driver = ChromeInstance.Driver();
+            driver.Url = "http://youlikehits.com/";
             List<DCookie> dCookie;
             using (var reader = new StreamReader(this._dirPath + "/" + acc.Login + ".xml"))
             {
@@ -113,16 +113,16 @@ namespace YouLikeHits
           
             foreach (var cookie in dCookie)
             {
-                phantomJs.Manage().Cookies.AddCookie(cookie.GetCookie());
+                driver.Manage().Cookies.AddCookie(cookie.GetCookie());
             }
 
           
 
          
-            phantomJs.Url = "https://youlikehits.com/";
-               OpenQA.Selenium.Screenshot screenshot = ((ITakesScreenshot)phantomJs).GetScreenshot();
+            driver.Url = "https://youlikehits.com/";
+               OpenQA.Selenium.Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             screenshot.SaveAsFile("cookie.jpg", ScreenshotImageFormat.Jpeg);
-            return phantomJs;
+            return driver;
 
         }
 

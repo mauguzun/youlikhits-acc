@@ -15,12 +15,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-
+using OpenQA.Selenium.Support.UI;
 namespace YouLikeHits
 {
     class Program
     {
         public const string IMG = "img";
+        private const string accFile = "account_in_account.txt";
         public static Guid guid = Guid.NewGuid();
         public static string acc = null;
         public static Account selectedAcc;
@@ -33,7 +34,7 @@ namespace YouLikeHits
         {
 
 
-       // Clear();
+            // Clear();
             AccRepo repo = new AccRepo();
             //var cookiesAcc = new AccountManager().Accounts();
             //List<Account> newList = new List<Account>();
@@ -52,14 +53,10 @@ namespace YouLikeHits
 
             if (args.Count() != 0)
             {
-                if (args[0] == "all")
-                {
-                    OpenAll(repo);
-                }
-                else
-                {
-                    defaultNumber = Int32.Parse(args[0]);
-                }
+
+
+                defaultNumber = Int32.Parse(args[0]);
+
             }
             else
             {
@@ -67,30 +64,26 @@ namespace YouLikeHits
                 {
                     Console.WriteLine($"{line.Number},{line.Login},{line.Password}");
                 }
-                Console.WriteLine("pls choose account ,all,grab,timer,login,clear");
+                Console.WriteLine("pls choose login, grab, login,clear,account");
 
                 string number = Console.ReadLine().Trim();
-                if (number == "all")
-                {
-                    OpenAll(repo);
-                    Console.ReadLine();
 
-                }
-                else if (number == "log")
+                if (number == "login")
                 {
                     AccountManager manager = new AccountManager();
                     manager.LoginAll();
+                }
+                else if (number == "account")
+                {
+                    ColectPinterest(repo);
+                    Console.ReadLine();
                 }
                 else if (number == "grab")
                 {
                     Grab(repo);
                     Console.ReadLine();
                 }
-                else if (number == "timer")
-                {
-                    Timer timer = new Timer(MakeTimer, repo, new TimeSpan(0, 0, 0), new TimeSpan(0, 15, 0));
-                    Console.ReadLine();
-                }
+
                 else if (number == "clear")
                 {
                     Clear();
@@ -102,7 +95,7 @@ namespace YouLikeHits
             }
             Console.WriteLine("en  moment");
 
-            while(true)
+            while (true)
             {
                 AccountManager accountManager = new AccountManager();
                 selectedAcc = repo.Accounts.Where(y => y.Number == defaultNumber).FirstOrDefault();
@@ -135,49 +128,21 @@ namespace YouLikeHits
             Console.ReadKey();
 
 
-            // p.Follow();
-
-            //  Console.WriteLine("1.pinterest \n 2.youtube");
-
-            //if (Console.ReadLine().Trim() == "1")
-            //{
-            //Pinterest p = new Pinterest(driver);
-            //p.Login();
-            //p.Follow();
 
 
         }
-        
-        //private static PhantomJSDriverService GetJsSettingsPhantom()
-        //{
-        //    var serviceJs = PhantomJSDriverService.CreateDefaultService();
-        //    serviceJs.HideCommandPromptWindow = true;
-        //    serviceJs.IgnoreSslErrors = true;
-        //    return serviceJs;
-        //}
+
 
         private static void MakeTimer(object state)
         {
-            KillAllPhantom();
-            driver =  ChromeInstance.Driver();
+
+            driver = ChromeInstance.Driver();
             AccRepo repo = (AccRepo)state;
             Grab(repo);
             Console.ReadLine();
         }
 
-        private static void KillAllPhantom()
-        {
-            var proccess = Process.GetProcesses();
-            foreach (Process pr in proccess)
-            {
 
-                var x = pr.ProcessName;
-                if (pr.ProcessName.ToLower().Contains("phantom"))
-                    pr.Kill();
-
-            }
-
-        }
 
         private static bool Login()
         {
@@ -209,13 +174,8 @@ namespace YouLikeHits
                 try
                 {
                     Console.WriteLine($"check {acc.Login}");
-                    //sendAccount = acc;
-                    //Login();
 
                     YoulikeHits sendAccount = new YoulikeHits();
-
-                    //sendAccount.Login = acc.Login;
-                    //sendAccount.Password = acc.Password;
                     driver = new AccountManager().GetLoginedDriver(acc);
                     driver.Url = "https://youlikehits.com/addpinterest.php";
 
@@ -233,15 +193,14 @@ namespace YouLikeHits
                         Console.WriteLine($"{acc.Login}:{driver.FindElementByCssSelector("center a[href = 'buypoints.php'] font").Text}");
                         sendAccount.Point = driver.FindElementByCssSelector("center a[href = 'buypoints.php'] font").Text;
                     }
-   
 
 
 
-                    if (driver.FindElementsByCssSelector("center a[href = 'bonuspoints.php']") != null && driver.FindElementsByCssSelector("center a[href = 'bonuspoints.php']").Count != 0)
-                    {
-                        var x = driver.FindElementsByCssSelector("center a[href = 'bonuspoints.php']");
-                        System.Diagnostics.Process.Start("YouLikeHits.exe", acc.Number.ToString());
-                    }
+
+
+                    var x = driver.FindElementsByCssSelector("center a[href = 'bonuspoints.php']");
+                    System.Diagnostics.Process.Start("YouLikeHits.exe", acc.Number.ToString());
+
 
                     driver.Url = "http://youlikehits.com/logout.php";
 
@@ -250,9 +209,6 @@ namespace YouLikeHits
                 catch (Exception e)
                 {
 
-                    Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
-                    screenshot.SaveAsFile("cantlogin.jpg", ScreenshotImageFormat.Jpeg);
-
                     Console.WriteLine(e.Message);
                     Console.WriteLine("omg");
                 }
@@ -260,6 +216,70 @@ namespace YouLikeHits
                 {
                     driver.Url = "http://youlikehits.com/logout.php";
                 }
+
+            }
+        }
+        private static void ColectPinterest(AccRepo repo)
+        {
+            Console.WriteLine("Select account");
+            defaultNumber = int.Parse(Console.ReadLine());
+            AccountManager accountManager = new AccountManager();
+            selectedAcc = repo.Accounts.Where(y => y.Number == defaultNumber).FirstOrDefault();
+            driver = accountManager.GetLoginedDriver(selectedAcc);
+            if (accountManager.Logined(selectedAcc))
+            {
+                driver.Url = "https://www.youlikehits.com/addpinterest.php";
+
+                var links = driver.FindElementsByCssSelector(".cards a");
+                for (int i = 0; i < links.Count; i++)
+                {
+                    try
+                    {
+                        driver.FindElementByCssSelector(".cards a").Click();
+
+
+                        driver.Url = "https://www.youlikehits.com/addpinterest.php";
+                    }
+
+                    catch { }
+                }
+
+
+                var account = GUI.Account.GetAccountExtraInfo();
+
+                driver.FindElementByCssSelector(".mainfocusbody a").Click();
+
+                int addedAccount = 0;
+                var noobies = account.Where(x => x.Followers < 2);
+                foreach (var item in noobies)
+                {
+                    try
+                    {
+                        driver.FindElementByCssSelector("#url").Clear();
+                        driver.FindElementByCssSelector("#url").SendKeys(item.UserName);
+                        driver.FindElementByCssSelector("#verifybutton").Click();
+                        addedAccount++;
+                    }
+                    catch
+                    {
+
+                    }
+
+                    if (addedAccount == 10)
+                        break;
+                }
+                driver.Url = "https://www.youlikehits.com/addpinterest.php";
+                var select = driver.FindElementsByCssSelector(".cards select");
+                foreach (var item in select)
+                {
+                    var selectElement = new SelectElement(item);
+                    selectElement.SelectByValue("5");
+                    Console.WriteLine("done");
+                }
+            }
+            else
+            {
+                Console.Title = "user can`t login" + selectedAcc.Login;
 
             }
         }
