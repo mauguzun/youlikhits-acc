@@ -260,9 +260,9 @@ namespace YouLikeHits
                         driver.FindElementByCssSelector("#verifybutton").Click();
                         addedAccount++;
                     }
-                    catch
+                    catch(Exception ex)
                     {
-
+                        Console.WriteLine("catch" + ex.Message);
                     }
 
                     if (addedAccount == 10)
