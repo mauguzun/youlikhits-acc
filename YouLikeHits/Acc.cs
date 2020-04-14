@@ -56,10 +56,10 @@ namespace GUI
 
 
                 };
-                if (splited.Count() > 3)
+                if (splited.Count() > 3 && !String.IsNullOrEmpty(splited[6]))
                 {
-
-                    acc.Followers = Int32.Parse(splited[6] );
+                   
+                    acc.Followers = Int32.Parse(splited[5] );
 
                 }
                 acounts.Add(acc);

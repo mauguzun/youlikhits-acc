@@ -29,8 +29,12 @@ namespace YouLikeHits
 
         public void LoginAll()
         {
-            foreach (var acc in _accounts)
+
+            while (true)
             {
+                Console.WriteLine("select");
+                var acc = _accounts[Int32.Parse(Console.ReadLine())-1];
+
                 CheckAccount(acc);
                 Console.WriteLine("correct y? / n ?");
                 Console.WriteLine(acc.Login + acc.Password);
@@ -40,7 +44,9 @@ namespace YouLikeHits
                 }
                 driver.Quit();
 
+
             }
+
         }
 
         private void CheckAccount(Account acc)
@@ -70,15 +76,15 @@ namespace YouLikeHits
 
                 listDc.Add(dCookie);
             }
-            XmlSerializer ser = new XmlSerializer(typeof(List<DCookie>),new XmlRootAttribute("list"));
- 
-            using (FileStream fs = new FileStream(this._dirPath + "/" + this.FileName(acc) , FileMode.Create))
+            XmlSerializer ser = new XmlSerializer(typeof(List<DCookie>), new XmlRootAttribute("list"));
+
+            using (FileStream fs = new FileStream(this._dirPath + "/" + this.FileName(acc), FileMode.Create))
             {
                 ser.Serialize(fs, listDc);
             }
         }
 
-        private string FileName(Account acc )
+        private string FileName(Account acc)
         {
             return acc.Login + ".xml";
         }
@@ -86,15 +92,15 @@ namespace YouLikeHits
         public List<string> Accounts()
         {
             List<string> res = new List<string>();
-            foreach(string name in  Directory.GetFiles(this._dirPath))
+            foreach (string name in Directory.GetFiles(this._dirPath))
             {
-              
+
                 res.Add(Path.GetFileNameWithoutExtension(name));
             }
             return res;
         }
 
-         
+
 
         public RemoteWebDriver GetLoginedDriver(Account acc)
         {
@@ -110,17 +116,17 @@ namespace YouLikeHits
                     new XmlRootAttribute("list"));
                 dCookie = (List<DCookie>)deserializer.Deserialize(reader);
             }
-          
+
             foreach (var cookie in dCookie)
             {
                 driver.Manage().Cookies.AddCookie(cookie.GetCookie());
             }
 
-          
 
-         
+
+
             driver.Url = "https://youlikehits.com/";
-               OpenQA.Selenium.Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+            OpenQA.Selenium.Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
             screenshot.SaveAsFile("cookie.jpg", ScreenshotImageFormat.Jpeg);
             return driver;
 

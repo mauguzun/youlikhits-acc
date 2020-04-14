@@ -2,15 +2,15 @@
 <list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DCookie>
     <Name>__utmb</Name>
-    <Value>255682432.2.10.1583008421</Value>
+    <Value>255682432.2.10.1585138930</Value>
     <Domain>.youlikehits.com</Domain>
     <Path>/</Path>
-    <Expiry>2020-02-29T23:03:55+02:00</Expiry>
+    <Expiry>2020-03-25T14:52:16+02:00</Expiry>
     <Secure>false</Secure>
   </DCookie>
   <DCookie>
     <Name>LBSESSIONID</Name>
-    <Value>A|XlrKt|XlrKp</Value>
+    <Value>A|XntM/|XntM9</Value>
     <Domain>www.youlikehits.com</Domain>
     <Path>/</Path>
     <Expiry xsi:nil="true" />
@@ -21,7 +21,7 @@
     <Value>67e3ca35721ff10724dbb15648838619</Value>
     <Domain>.youlikehits.com</Domain>
     <Path>/</Path>
-    <Expiry>2020-03-30T23:33:54.957+03:00</Expiry>
+    <Expiry>2020-04-24T15:22:15.877+03:00</Expiry>
     <Secure>false</Secure>
   </DCookie>
   <DCookie>
@@ -29,7 +29,7 @@
     <Value>dshabalin%40lifa.lv</Value>
     <Domain>.youlikehits.com</Domain>
     <Path>/</Path>
-    <Expiry>2020-03-30T23:33:54.957+03:00</Expiry>
+    <Expiry>2020-04-24T15:22:15.877+03:00</Expiry>
     <Secure>false</Secure>
   </DCookie>
   <DCookie>
@@ -37,7 +37,7 @@
     <Value>5f4dcc3b5aa765d61d8327deb882cf99</Value>
     <Domain>.youlikehits.com</Domain>
     <Path>/</Path>
-    <Expiry>2020-03-30T23:33:54.957+03:00</Expiry>
+    <Expiry>2020-04-24T15:22:15.877+03:00</Expiry>
     <Secure>false</Secure>
   </DCookie>
   <DCookie>
@@ -45,15 +45,15 @@
     <Value>1</Value>
     <Domain>.youlikehits.com</Domain>
     <Path>/</Path>
-    <Expiry>2020-02-29T22:43:40+02:00</Expiry>
+    <Expiry>2020-03-25T14:32:09+02:00</Expiry>
     <Secure>false</Secure>
   </DCookie>
   <DCookie>
     <Name>__utmz</Name>
-    <Value>255682432.1583008421.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)</Value>
+    <Value>255682432.1585138930.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)</Value>
     <Domain>.youlikehits.com</Domain>
     <Path>/</Path>
-    <Expiry>2020-08-30T11:33:55+03:00</Expiry>
+    <Expiry>2020-09-24T03:22:16+03:00</Expiry>
     <Secure>false</Secure>
   </DCookie>
   <DCookie>
@@ -66,15 +66,15 @@
   </DCookie>
   <DCookie>
     <Name>__utma</Name>
-    <Value>255682432.1522182094.1583008421.1583008421.1583008421.1</Value>
+    <Value>255682432.1327534254.1585138930.1585138930.1585138930.1</Value>
     <Domain>.youlikehits.com</Domain>
     <Path>/</Path>
-    <Expiry>2022-02-28T22:33:55+02:00</Expiry>
+    <Expiry>2022-03-25T14:22:16+02:00</Expiry>
     <Secure>false</Secure>
   </DCookie>
   <DCookie>
     <Name>PHPSESSID</Name>
-    <Value>7100706f1ebeaec9a87567983d5b6c4c</Value>
+    <Value>43df78e4c7cb1064d867b28f18170aa6</Value>
     <Domain>www.youlikehits.com</Domain>
     <Path>/</Path>
     <Expiry xsi:nil="true" />

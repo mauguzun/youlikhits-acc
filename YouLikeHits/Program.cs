@@ -27,7 +27,7 @@ namespace YouLikeHits
         public static Account selectedAcc;
         static RemoteWebDriver driver;
         public static int defaultNumber = 1;
-
+        static  List<GUI.Account> already = new List<GUI.Account>();
 
 
         static void Main(string[] args)
@@ -221,67 +221,90 @@ namespace YouLikeHits
         }
         private static void ColectPinterest(AccRepo repo)
         {
-            Console.WriteLine("Select account");
-            defaultNumber = int.Parse(Console.ReadLine());
-            AccountManager accountManager = new AccountManager();
-            selectedAcc = repo.Accounts.Where(y => y.Number == defaultNumber).FirstOrDefault();
-            driver = accountManager.GetLoginedDriver(selectedAcc);
-            if (accountManager.Logined(selectedAcc))
+           
+            while (true)
             {
-                driver.Url = "https://www.youlikehits.com/addpinterest.php";
-
-                var links = driver.FindElementsByCssSelector(".cards a");
-                for (int i = 0; i < links.Count; i++)
+                Console.WriteLine("Select account");
+                defaultNumber = int.Parse(Console.ReadLine());
+                AccountManager accountManager = new AccountManager();
+                selectedAcc = repo.Accounts.Where(y => y.Number == defaultNumber).FirstOrDefault();
+                driver = accountManager.GetLoginedDriver(selectedAcc);
+                if (accountManager.Logined(selectedAcc))
                 {
-                    try
+                    driver.Url = "https://www.youlikehits.com/addpinterest.php";
+
+                    var links = driver.FindElementsByCssSelector(".cards a");
+                    for (int i = 0; i < links.Count; i++)
                     {
-                        driver.FindElementByCssSelector(".cards a").Click();
+                        try
+                        {
+                            driver.FindElementByCssSelector(".cards a").Click();
 
 
-                        driver.Url = "https://www.youlikehits.com/addpinterest.php";
+                            driver.Url = "https://www.youlikehits.com/addpinterest.php";
+                        }
+
+                        catch { }
                     }
 
-                    catch { }
+
+                    var account = GUI.Account.GetAccountExtraInfo();
+
+
+                    
+                    IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                    string title = (string)js.ExecuteScript("document.getElementById('addpage').setAttribute('style', '')");
+                 //   driver.FindElementByCssSelector(".mainfocusbody a").Click();
+
+                  
+
+                    int addedAccount = 0;
+                    var noobies = account.Where(x => x.Followers == 0);
+                    int count = 0;
+                    foreach (var item in noobies)
+                    {
+                        try
+                        {
+                            if (!already.Contains(item) && item.Followers != null )
+                            {
+                                already.Add(item);
+                                driver.FindElementByCssSelector("#url").Clear();
+                                driver.FindElementByCssSelector("#url").SendKeys(item.UserName);
+                                driver.FindElementByCssSelector("#verifybutton").Click();
+                                var x = driver.FindElementByCssSelector("#verify .mainfocusheader").Text;
+                                if (!driver.FindElementByCssSelector("#verify .mainfocusheader").Text.ToLower().Contains("ops") )
+                                {
+                                    addedAccount++;
+                                }
+                            }
+                             
+                         
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("catch" + ex.Message);
+                        }
+                        count++;
+
+                        if (addedAccount == 10 | count > 40)
+                            break;
+                    }
+                    driver.Url = "https://www.youlikehits.com/addpinterest.php";
+                    var select = driver.FindElementsByCssSelector(".cards select");
+                    foreach (var item in select)
+                    {
+                        var selectElement = new SelectElement(item);
+                        selectElement.SelectByValue("10");
+                        Console.WriteLine("done");
+                    }
                 }
-
-
-                var account = GUI.Account.GetAccountExtraInfo();
-
-                driver.FindElementByCssSelector(".mainfocusbody a").Click();
-
-                int addedAccount = 0;
-                var noobies = account.Where(x => x.Followers < 2);
-                foreach (var item in noobies)
+                else
                 {
-                    try
-                    {
-                        driver.FindElementByCssSelector("#url").Clear();
-                        driver.FindElementByCssSelector("#url").SendKeys(item.UserName);
-                        driver.FindElementByCssSelector("#verifybutton").Click();
-                        addedAccount++;
-                    }
-                    catch(Exception ex)
-                    {
-                        Console.WriteLine("catch" + ex.Message);
-                    }
+                    Console.Title = "user can`t login" + selectedAcc.Login;
 
-                    if (addedAccount == 10)
-                        break;
-                }
-                driver.Url = "https://www.youlikehits.com/addpinterest.php";
-                var select = driver.FindElementsByCssSelector(".cards select");
-                foreach (var item in select)
-                {
-                    var selectElement = new SelectElement(item);
-                    selectElement.SelectByValue("5");
-                    Console.WriteLine("done");
                 }
             }
-            else
-            {
-                Console.Title = "user can`t login" + selectedAcc.Login;
-
-            }
+         
         }
 
         private static void OpenAll(AccRepo repo)
