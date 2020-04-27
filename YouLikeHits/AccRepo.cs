@@ -22,7 +22,7 @@ namespace YouLikeHits
             foreach(string line in lines)
             {
                 string[] acc = line.Split(':');
-                Accounts.Add(new Account(acc[0], acc[1], num));
+                Accounts.Add(new Account(acc[0], Program.password , num));
                 num++;
 
             }
@@ -35,7 +35,7 @@ namespace YouLikeHits
                 File.Delete(Path);
                 foreach(Account acc in Accounts)
                 {
-                    File.AppendAllText(Path, acc.Login + ":" + acc.Password + Environment.NewLine);
+                    File.AppendAllText(Path, acc.Login + ":" + Program.password + Environment.NewLine);
                 }
             }
         }

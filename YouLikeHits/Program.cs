@@ -20,7 +20,7 @@ namespace YouLikeHits
 {
     class Program
     {
-        static string password = File.ReadAllText("Pass.txt").Trim();
+        public static string password = File.ReadAllText("Pass.txt").Trim();
 
 
         public const string IMG = "img";
