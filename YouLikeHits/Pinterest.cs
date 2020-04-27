@@ -13,8 +13,10 @@ namespace YouLikeHits
 {
     class Pinterest
     {
+       
         static string acc;
         RemoteWebDriver driver;
+
         public Pinterest(RemoteWebDriver driver)
         {
             this.driver = driver;
@@ -39,7 +41,7 @@ namespace YouLikeHits
                     driver.Manage().Cookies.AddCookie(cookie.GetCookie());
                 }
 
-      
+
 
                 Console.WriteLine("logined");
                 Thread.Sleep(new TimeSpan(0, 0, 5));

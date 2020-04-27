@@ -20,6 +20,9 @@ namespace YouLikeHits
 {
     class Program
     {
+        static string password = File.ReadAllText("Pass.txt").Trim();
+
+
         public const string IMG = "img";
         private const string accFile = "account_in_account.txt";
         public static Guid guid = Guid.NewGuid();
@@ -148,7 +151,7 @@ namespace YouLikeHits
         {
             driver.Url = "https://www.youlikehits.com/login.php";
             driver.FindElementById("username").SendKeys(selectedAcc.Login.Trim());
-            driver.FindElementById("password").SendKeys(selectedAcc.Password.Trim());
+            driver.FindElementById("password").SendKeys(password);
             driver.FindElementByCssSelector("input[value=Login]").Click();
 
 

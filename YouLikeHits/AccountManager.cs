@@ -51,7 +51,7 @@ namespace YouLikeHits
 
         private void CheckAccount(Account acc)
         {
-            this.driver = new ChromeDriver();
+            this.driver = ChromeInstance.Driver(true);
             driver.Url = "https://www.youlikehits.com/login.php";
             driver.FindElementById("username").SendKeys(acc.Login);
             driver.FindElementById("password").SendKeys(acc.Password);

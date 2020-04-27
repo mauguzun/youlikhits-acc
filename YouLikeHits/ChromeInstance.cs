@@ -21,6 +21,17 @@ namespace YouLikeHits
             if (!visible)
                 options.AddArguments("headless");
 
+            /*            148.217.94.54:3128
+            132.145.89.166:3128
+            163.172.190.160:8811
+            5.189.134.87:3128
+            5.189.134.87:3128
+            51.158.172.165:8811
+            51.158.172.165:8811*/
+
+            options.AddArgument("--proxy-server=51.158.172.165:8811");  //
+            //
+
             options.AddArgument("--window-size=1920,4080");
             ChromeDriver driver = new ChromeDriver(driverService, options);
         

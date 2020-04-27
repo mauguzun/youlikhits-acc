@@ -211,6 +211,9 @@
     <Compile Include="Youtube.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pass.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Acc.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

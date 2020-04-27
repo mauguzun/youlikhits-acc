@@ -309,3 +309,4 @@ C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csproj.CoreCom
 C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.csproj.CopyComplete
 C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.exe
 C:\my_work_files\youlikhits-acc\YouLikeHits\obj\Debug\YouLikeHits.pdb
+C:\my_work_files\youlikhits-acc\YouLikeHits\bin\Debug\Pass.txt

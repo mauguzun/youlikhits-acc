@@ -160,3 +160,4 @@
 [0423/104722.536:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
 [0424/155511.626:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
 [0424/155525.681:ERROR:crashpad_client_win.cc(508)] CreateProcess: The paging file is too small for this operation to complete. (0x5AF)
+[0426/231629.466:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
