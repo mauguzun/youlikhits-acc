@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,13 @@ namespace YouLikeHits
             5.189.134.87:3128
             51.158.172.165:8811
             51.158.172.165:8811*/
+            Console.WriteLine(File.ReadAllText("Proxy.txt").Trim());
 
-            options.AddArgument("--proxy-server=51.158.172.165:8811");  //
+            if (File.ReadAllText("Proxy.txt").Trim()  != "")
+            {
+                options.AddArgument($"--proxy-server={File.ReadAllText("Proxy.txt").Trim()}");  //
+
+            }
             //
 
             options.AddArgument("--window-size=1920,4080");
