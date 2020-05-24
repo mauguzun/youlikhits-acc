@@ -299,6 +299,22 @@ namespace YouLikeHits
                             driver.FindElementByCssSelector("#url").Clear();
                             driver.FindElementByCssSelector("#url").SendKeys(item.UserName);
                             driver.FindElementByCssSelector("#verifybutton").Click();
+
+                            if(addedAccount > 11)
+                                break;
+
+                            if (driver.FindElementsByCssSelector("#verify .mainfocusheader").Count ==0)
+                            {
+                                addedAccount++;
+                                continue;
+                            }
+                            else
+                            {
+                                var have = driver.FindElementByCssSelector("#verify .maintable").Text;
+                                if (have.Contains("up to 10 Pinterest"))
+                                    break;
+
+                            }
                             var x = driver.FindElementByCssSelector("#verify .mainfocusheader").Text;
                             if (!driver.FindElementByCssSelector("#verify .mainfocusheader").Text.ToLower().Contains("ops"))
                             {
