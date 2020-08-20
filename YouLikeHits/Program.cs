@@ -338,7 +338,7 @@ namespace YouLikeHits
                 foreach (var item in select)
                 {
                     var selectElement = new SelectElement(item);
-                    selectElement.SelectByValue("10");
+                    selectElement.SelectByValue("20");
                     Console.WriteLine("done");
                 }
             }
